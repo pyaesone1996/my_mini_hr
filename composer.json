@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5|^8.0",
+        "alrik11es/cowsayphp": "^1.2",
         "darkghosthunter/larapass": "^3.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
@@ -19,7 +20,7 @@
         "proengsoft/laravel-jsvalidation": "^4.5",
         "simplesoftwareio/simple-qrcode": "~2",
         "spatie/laravel-permission": "^5.4",
-        "yajra/laravel-datatables-oracle": "~9.0",
+        "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",
