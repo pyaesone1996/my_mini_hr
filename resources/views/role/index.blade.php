@@ -1,0 +1,68 @@
+@extends('layouts.app')
+@section('title','Roles')
+@section('content')
+    <div>
+        @can('create_role')
+            <a href="{{ route('role.create') }}" class="btn btn-theme btn-sm btn-success">
+                <i class="fas fa-plus-circle pr-1"></i>
+                Create Role
+            </a>
+         @endcan
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-bordered Datatable w-100">
+                <thead>
+                    <th class="text-center no-sort no-search"></th>
+                    <th class="text-center">Name</th>
+                    <th class="text-center no-sort">Permission</th>
+                    <th class="text-center no-sort">Action</th>
+                    <th class="text-center no-search hidden">Updated Time</th>
+                </thead>
+            </table>
+        </div>
+    </div>
+@endsection
+
+@section('extra-js')
+    <script>
+         $(document).ready(function(){
+            var table = $('.Datatable').DataTable({
+                ajax: '/role/datable/ssd',
+                columns: [
+                    {data: 'plus-icon', name: 'plus-icon' , class:'text-center'},
+                    {data: 'name', name: 'name' , class:'text-center'},
+                    {data: 'permissions', name: 'permissions' , class:'text-center'},
+                    {data: 'action', name: 'action', class:'text-center'},
+                    {data: 'updated_at', name: 'updated_at', class:'text-center'},
+                ],
+                order:[[4,'desc']]
+            });
+
+            $(document).on('click', '.delete-btn',function(e){
+              e.preventDefault();
+
+              var id = $(this).data('id');
+              swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover this imaginary file!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            method:"DELETE",
+                            url:`/role/${id}`,
+                        }).done(function(res){
+                            table.ajax.reload();
+                        });
+                    } 
+                });
+            });
+        
+         });
+
+    </script>
+@endsection
